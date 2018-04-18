@@ -78,10 +78,19 @@ describe('Animals API', () => {
             .then(({ body }) => {
                 assert.deepEqual(body, sloth);
                 return Animal.findById(sloth._id)
-                .then(roundTrip);
+                    .then(roundTrip);
             })
             .then(updated => {
                 assert.deepEqual(updated, sloth);
+            });
+    });
+
+    const getFields = ({ _id, common, habitat }) => ({ _id, common, habitat });
+
+    it('gets all animals and returns _id, common, genus, and habitat', () => {
+        return request.get('/pirates')
+            .then(({ body }) => {
+                assert.deepEqual(body, [squid, sloth]. map(getFields));
             });
     });
 });
