@@ -88,9 +88,10 @@ describe('Animals API', () => {
     const getFields = ({ _id, common, habitat }) => ({ _id, common, habitat });
 
     it('gets all animals and returns _id, common, genus, and habitat', () => {
-        return request.get('/pirates')
+        return request.get('/animals')
             .then(({ body }) => {
-                assert.deepEqual(body, [squid, sloth]. map(getFields));
+                assert.deepEqual(body, [squid, sloth].map(getFields));
             });
     });
+
 });
