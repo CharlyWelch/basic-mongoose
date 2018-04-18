@@ -56,4 +56,18 @@ describe('Animals API', () => {
                 squid = body;
             });
     });
+
+    const roundTrip = doc => JSON.parse(JSON.stringify(doc.toJSON()));
+
+    it('gets and animal by id', () => {
+        return Animal.create(sloth).then(roundTrip)
+            .then(saved => {
+                sloth = saved;
+                return request.get(`/animals/${sloth._id}`);
+            })
+            .then(({ body }) => {
+                assert.deepEqual(body, sloth);
+            });
+    });
+
 });
