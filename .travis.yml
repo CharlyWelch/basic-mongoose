@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - "8"
+
+sudo: false
+services:
+  - mongodb
+env: 
+  MONGODB_URI=mongodb://localhost:27017/animals_test
