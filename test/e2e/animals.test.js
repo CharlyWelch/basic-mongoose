@@ -70,4 +70,18 @@ describe('Animals API', () => {
             });
     });
 
+    it('updates an animal', () => {
+        sloth.habitat = 'canopy';
+
+        return request.put(`/animals/${sloth._id}`)
+            .send(sloth)
+            .then(({ body }) => {
+                assert.deepEqual(body, sloth);
+                return Animal.findById(sloth._id)
+                .then(roundTrip);
+            })
+            .then(updated => {
+                assert.deepEqual(updated, sloth);
+            });
+    });
 });
