@@ -24,21 +24,36 @@ describe('Animals API', () => {
         features: ['slow', 'cute', 'nine cervical vertebrae']
     };
 
+    // it('saves and gets an animal', () => {
+    //     return new Animal(squid).save()
+    //         .then(saved => {
+    //             saved = saved.toJSON();
+    //             const { _id, __v, common } = saved;
+    //             assert.ok(_id);
+    //             assert.equal(__v, 0);
+    //             assert.ok(common);
+    //             assert.deepEqual(saved, {
+    //                 _id, __v, common,
+    //                 ...squid
+    //             });
+    //             squid = saved;
+    //             return Animal.findById(saved._id).lean();
+    //         })
+    //         .then(found => assert.deepEqual(found, squid));
+    // });
     it('saves and gets an animal', () => {
-        return new Animal(squid).save()
-            .then(saved => {
-                saved = saved.toJSON();
-                const { _id, __v, common } = saved;
+        return request.post('/animals')
+            .send(squid)
+            .then(({ body }) => {
+                const { _id, __v, common } = body;
                 assert.ok(_id);
                 assert.equal(__v, 0);
                 assert.ok(common);
-                assert.deepEqual(saved, {
+                assert.deepEqual(body, {
                     _id, __v, common,
                     ...squid
                 });
-                squid = saved;
-                return Animal.findById(saved._id).lean();
-            })
-            .then(found => assert.deepEqual(found, squid));
+                squid = body;
+            });
     });
 });
