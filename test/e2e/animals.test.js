@@ -111,4 +111,12 @@ describe('Animals API', () => {
             });
     });
 
+    it('returns 404 not found for nonexistent id', () => {
+        return request.get(`/animals/${squid._id}`)
+            .then(response => {
+                assert.equal(response.status, 404);
+                assert.match(response.body.error, /^Animal with/)
+            })
+    });
+
 });
