@@ -5,7 +5,7 @@ describe('Animal model', () => {
 
     it('is a valid model', () => {
         const data = {
-            common: 'giant squid',
+            common: 'Giant Squid',
             binomial: {
                 genus: 'Architeuthis',
                 species: 'dux',
@@ -15,12 +15,10 @@ describe('Animal model', () => {
         };
 
         const animal = new Animal(data);
-
         assert.deepEqual(animal.toJSON(), { _id: animal._id, ...data });
-
         assert.isUndefined(animal.validateSync());
     });
-
+    
     const getValidationErrors = validation => {
         assert.isDefined(validation, 'expected to encounter errors but got none');
         return validation.errors;
