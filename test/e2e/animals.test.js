@@ -101,4 +101,14 @@ describe('Animals API', () => {
             });
     });
 
+    it('deletes an animal', () => {
+        return request.delete(`/animals/${squid._id}`)
+            .then(() => {
+                return Animal.findById(squid._id);
+            })
+            .then(found => {
+                assert.isNull(found);
+            });
+    });
+
 });
