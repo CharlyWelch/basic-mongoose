@@ -94,4 +94,11 @@ describe('Animals API', () => {
             });
     });
 
+    it('queries animals', () => {
+        return request.get('/animals?common=Giant Squid')
+            .then(({ body }) => {
+                assert.deepEqual(body, [squid].map(getFields));
+            });
+    });
+
 });
