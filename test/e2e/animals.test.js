@@ -6,7 +6,7 @@ const { dropCollection } = require('./db');
 describe('Animals API', () => {
     before(() => dropCollection('animals'));
 
-    const squid = {
+    let squid = {
         common: 'Giant Squid',
         binomial: {
             genus: 'Architeuthis',
@@ -15,7 +15,7 @@ describe('Animals API', () => {
         habitat: 'marine',
         features: ['tentacles', 'beak', 'siphon']
     };
-    const sloth = {
+    let sloth = {
         common: 'Three Toed Sloth',
         binomial: {
             genus: 'Bradypus',
@@ -31,6 +31,14 @@ describe('Animals API', () => {
                 const { _id, __v, common } = saved;
                 assert.ok(_id);
                 assert.equal(__v, 0);
-            });
+                assert.ok(common);
+                assert.deepEqual(saved, {
+                    _id, __v, common,
+                    ...squid
+                });
+                squid = saved;
+                return Animal.findById(saved._id).lean();
+            })
+            .then(found => assert.deepEqual(found, squid));
     });
 });
