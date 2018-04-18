@@ -59,7 +59,7 @@ describe('Animals API', () => {
 
     const roundTrip = doc => JSON.parse(JSON.stringify(doc.toJSON()));
 
-    it('gets and animal by id', () => {
+    it('gets an animal by id', () => {
         return Animal.create(sloth).then(roundTrip)
             .then(saved => {
                 sloth = saved;
